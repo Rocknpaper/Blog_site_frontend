@@ -1,0 +1,25 @@
+.singlePost {
+  /* display: flex; */
+  margin: 0 1.2rem;
+  margin-bottom: 0.7rem;
+  background: var(--primary-background);
+  padding: 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.post__avatar {
+  margin-right: 1rem;
+}
+
+.post__time {
+  margin-top: 0.5rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+}

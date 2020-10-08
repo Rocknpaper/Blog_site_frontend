@@ -1,0 +1,8 @@
+.createPost {
+  flex: 0.7;
+  overflow-y: scroll;
+  scrollbar-color: #770e77;
+  scrollbar-width: 3px;
+  margin-top: 3rem;
+  width: 100%;
+}
