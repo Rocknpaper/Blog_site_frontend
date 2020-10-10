@@ -5,8 +5,10 @@ import axios from "../../axios";
 import Modal from "../../components/UI/Modal/Modal";
 import InputFeild from "../../components/UI/InputFeild/InputFeild";
 import Button from "../../components/UI/Button/Button";
+import { Redirect, RouteProps } from "react-router-dom";
 
-const Auth: React.FC = () => {
+
+const Auth: React.FC<RouteProps> = ({ location }) => {
   const [email, setEmail] = useState<string>("");
 
   const changeEmailHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -27,12 +29,23 @@ const Auth: React.FC = () => {
         email: email,
         password: password,
       })
-      .then((data) => localStorage.setItem("jwt", data.data.jwt))
+      .then((data) => {
+        console.log(data);
+        localStorage.setItem("jwt", data.data.jwt)})
       .catch((e) => console.log(e));
   };
 
+  const [show, setShow] = useState<boolean>(true);
+
+  const modalClickHandler = () => {
+    setShow(false);
+  }
+
+
   return (
-    <Modal>
+    <React.Fragment>
+      {show?  null : <Redirect to="/" />}
+      <Modal show={show} onClick={modalClickHandler} >
       <form className="auth__form">
         <h1>Login to Create Posts</h1>
         <InputFeild
@@ -50,6 +63,8 @@ const Auth: React.FC = () => {
         <Button text="Login" onClick={submitHandler} />
       </form>
     </Modal>
+    </React.Fragment>
+
   );
 };
 
