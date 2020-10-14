@@ -1,6 +1,7 @@
 .modal {
   z-index: 500;
   flex: 0.7;
+  height: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,5 +9,5 @@
   padding: 16px;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
-  transform: translateY(-5%);
+  transform: translateY(40%);
 }

@@ -1,6 +1,6 @@
 import { Blogs } from "../models";
 
-export function updateState<T>(oldState: T, newState: T) {
+export function updateState<T>(oldState: T, newState: any) {
   return {
     ...oldState,
     ...newState,
@@ -13,10 +13,14 @@ export function updateBlogs(oldState: Blogs[], newState: Blogs[]) {
   const checker: string[] = [];
 
   return updatedArray.filter((currentValue, index, arr) => {
-    if (checker.includes(currentValue._id.$oid)) {
-      return false;
+    if (currentValue._id) {
+      if (checker.includes(currentValue._id.$oid)) {
+        return false;
+      } else {
+        checker.push(currentValue._id.$oid);
+        return true;
+      }
     } else {
-      checker.push(currentValue._id.$oid);
       return true;
     }
   });

@@ -1,0 +1,90 @@
+.singlePost {
+  position: relative;
+  display: flex;
+  margin: 0 1.2rem;
+  margin-bottom: 0.7rem;
+  background: var(--primary-background);
+  padding: 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  align-items: center;
+}
+
+.post__votes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.2rem 0;
+  margin-right: 10px;
+}
+
+.post__votes > .upvote > .MuiSvgIcon-root,
+.downvote > .MuiSvgIcon-root {
+  height: 30px;
+  width: 20px;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  background-color: #d5d7d8;
+  border-radius: 5px;
+  transition: color 200ms ease-in;
+}
+
+.post__votes > p {
+  padding: 0.2rem;
+}
+
+.upvote > .MuiSvgIcon-root:hover {
+  color: #118811;
+}
+
+.downvote > .MuiSvgIcon-root:hover {
+  color: #d11b1b;
+}
+
+.post__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.post__avatar {
+  margin-right: 1rem;
+}
+
+.post__time {
+  margin-top: 0.5rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.post__tail {
+  position: absolute;
+  right: 0;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0.2rem 0;
+  margin-right: 1.2rem;
+}
+
+.post__edit > .MuiSvgIcon-root,
+.post__delete > .MuiSvgIcon-root {
+  height: 30px;
+  width: 20px;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  background-color: #d5d7d8;
+  border-radius: 5px;
+  transition: color 200ms ease-in;
+  margin-bottom: 10px;
+}
+
+.post__edit > .MuiSvgIcon-root:hover {
+  color: #9acd32;
+}
+
+.post__delete > .MuiSvgIcon-root:hover {
+  color: #e02f2f;
+}
+

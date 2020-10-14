@@ -4,15 +4,21 @@ import './index.css';
 import App from './App';
 
 import { Provider } from "react-redux";
-import {createStore, compose, applyMiddleware} from 'redux'
-import  {blogsReducer} from "./store/reducers";
+import {createStore, compose, applyMiddleware, combineReducers} from 'redux'
+import  {blogsReducer} from "./store/reducers/blog_reducer";
 import {BrowserRouter as Router} from 'react-router-dom'
 import thunk from "redux-thunk";
+import { userReducer } from './store/reducers/user_reducer';
 
 const w = window as any;
 const composeEnchancer = process.env.NODE_ENV === "development" ? w.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose
 
-const store = createStore(blogsReducer, composeEnchancer(applyMiddleware(thunk)));
+const reducers = combineReducers({
+  user: userReducer,
+  blog: blogsReducer
+})
+
+const store = createStore(reducers, composeEnchancer(applyMiddleware(thunk)));
 
 const app = 
 <Provider store= {store}>

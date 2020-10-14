@@ -1,0 +1,33 @@
+.registration__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  height: 100%;
+  width: 80%;
+  background-color: rgb(160, 53, 221);
+  border-radius: 5px;
+}
+
+.registration__form > h2 {
+  padding: 0.4rem;
+  color: #fff;
+  border: 2px solid #fff;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.registration__form input[type="file"] {
+  display: none;
+}
+
+.registration__form label {
+  display: flex;
+  background-color: #bdbd35;
+  padding: 0.3rem;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}

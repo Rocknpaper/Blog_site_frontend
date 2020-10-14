@@ -6,6 +6,7 @@ interface PropsType {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   placeHolder: string;
   value: string;
+  onFoucusOut?: (event: any) => void;
 }
 
 const InputFeild: React.FC<PropsType> = ({
@@ -13,6 +14,7 @@ const InputFeild: React.FC<PropsType> = ({
   onChange,
   placeHolder,
   value,
+  onFoucusOut,
 }) => {
   return (
     <input
@@ -21,6 +23,7 @@ const InputFeild: React.FC<PropsType> = ({
       placeholder={placeHolder}
       value={value}
       onChange={onChange}
+      onBlur={onFoucusOut}
     />
   );
 };

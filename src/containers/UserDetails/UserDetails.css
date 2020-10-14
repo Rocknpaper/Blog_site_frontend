@@ -1,0 +1,50 @@
+.userDetails {
+  flex: 0.7;
+  overflow-y: scroll;
+  scrollbar-color: #770e77;
+  scrollbar-width: 3px;
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user__details {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.user__data {
+  display: flex;
+  align-items: center;
+}
+
+.user__data > p {
+  font-size: 1.4rem;
+}
+
+.user__data > .MuiSvgIcon-root {
+  padding: 0.3rem;
+  width: 1.5rem;
+}
+
+.user__data > .MuiSvgIcon-root:hover,
+.user__avatar > .MuiSvgIcon-root:hover {
+  color: #35359c;
+}
+
+.user__avatar img {
+  position: relative;
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.user__avatar > .MuiSvgIcon-root {
+  position: absolute;
+}

@@ -7,9 +7,15 @@ import PostAdd from "@material-ui/icons/PostAdd";
 import SidebarOptions from "./SidebarOption/SidebarOption";
 import ShowPost from "@material-ui/icons/LibraryBooksOutlined";
 import User from "@material-ui/icons/PermIdentityOutlined";
+import Logout from "@material-ui/icons/MeetingRoomOutlined";
+import Explore from "@material-ui/icons/ExploreOutlined";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ReducersType, UserState } from "../../models";
 
 const Sidebar: React.FC = () => {
+  const user = useSelector<ReducersType, UserState>((state) => state.user);
+
   return (
     <nav className="sideBar">
       <NavLink to="/" exact className="logo">
@@ -18,6 +24,11 @@ const Sidebar: React.FC = () => {
       </NavLink>
       <div className="nav-elements">
         <SidebarOptions path="/" exact text="Home" Icon={Home}></SidebarOptions>
+        <SidebarOptions
+          path="/explore"
+          text="Explore"
+          Icon={Explore}
+        ></SidebarOptions>
         <SidebarOptions
           path="/create-post"
           text="Create Post"
@@ -33,6 +44,13 @@ const Sidebar: React.FC = () => {
           text="User Details"
           Icon={User}
         ></SidebarOptions>
+        {user.logged ? (
+          <SidebarOptions
+            path="/logout"
+            text="Log out"
+            Icon={Logout}
+          ></SidebarOptions>
+        ) : null}
       </div>
     </nav>
   );
