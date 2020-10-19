@@ -1,0 +1,40 @@
+.post__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.post__time {
+  margin-top: 0.5rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.post__tail {
+  position: absolute;
+  right: 0;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0.2rem 0;
+  margin-right: 1.2rem;
+}
+
+.post__edit > .MuiSvgIcon-root,
+.post__delete > .MuiSvgIcon-root {
+  height: 30px;
+  width: 20px;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  background-color: #d5d7d8;
+  border-radius: 5px;
+  transition: color 200ms ease-in;
+  margin-bottom: 10px;
+}
+
+.post__edit > .MuiSvgIcon-root:hover {
+  color: #9acd32;
+}
+
+.post__delete > .MuiSvgIcon-root:hover {
+  color: #e02f2f;
+}

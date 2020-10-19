@@ -10,6 +10,7 @@ import UserDetails from "./containers/UserDetails/UserDetails";
 import Auth from "./containers/Auth/Auth";
 import Registration from "./containers/Registration/Registration";
 import Logout from "./containers/Auth/Logout/Logout";
+import Blog from "./containers/Explore/Blog/Blog";
 
 const App = () => {
   return (
@@ -21,7 +22,8 @@ const App = () => {
       <Route path="/user" component={UserDetails} />
       <Route path="/auth" component={Auth} />
       <Route path="/register" component={Registration} />
-      <Route path="/edit-post/:id" component={CreatePost} />
+      <Route path="/show-post/:id" component={CreatePost} />
+      <Route path="/explore/:type/:id" component={Blog} />
       <Route path="/logout" component={Logout} />
     </div>
   );

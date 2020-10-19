@@ -1,0 +1,100 @@
+.comment {
+  position: relative;
+  background-color: var(--primary-background);
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 15px;
+  width: 50%;
+  min-width: 340px;
+}
+
+.comment-user__details {
+  display: flex;
+  align-items: center;
+}
+
+.comment-user__details > h2 {
+  margin-left: 1rem;
+}
+
+.comment-user__details > h4 {
+  margin-left: 0.7rem;
+  font-size: 0.7rem;
+}
+
+.comment > .content {
+  padding: 0 1rem;
+  border-radius: 15px;
+}
+
+.comment-footer {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: #cacaca;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.comment > .show__more >p{
+  color: #654088;
+  cursor: pointer;
+  padding-top: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.reply > .MuiSvgIcon-root:hover {
+  color: #aa7bd6;
+}
+
+.like > .MuiSvgIcon-root:hover {
+  color: #3de63d;
+}
+
+.dislike > .MuiSvgIcon-root:hover {
+  color: #d83c3c;
+}
+
+.like, .dislike{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.like.active .MuiSvgIcon-root, .dislike.active .MuiSvgIcon-root{
+  color: #5918a3
+}
+
+.like > span, .dislike > span {
+  margin-left: 0.3rem;
+}
+
+.admin__edit{
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.admin__edit > .edit, .admin__edit > .delete{
+  cursor: pointer;
+  padding: 0.3rem;
+  background-color: #b2a9bb;
+  border-radius: 5px;
+}
+
+.admin__edit > .delete{
+  margin-top: 0.5rem;
+}
+
+.admin__edit > .delete:hover{
+  color: #d83c3c;
+}
+
+.admin__edit > .edit:hover{
+  color: #4baacf;
+}

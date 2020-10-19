@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import "./InputFeild.css";
 
+
 interface PropsType {
   type: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;

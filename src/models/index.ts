@@ -1,5 +1,10 @@
 import { ActionTypes } from "../store/actions/actionTypes";
 
+interface Votes {
+  users: { $oid: string }[];
+  count: number;
+}
+
 export type Blogs = {
   _id?: {
     $oid: string;
@@ -11,14 +16,8 @@ export type Blogs = {
   created_at?: {
     $date: Date;
   };
-  upvotes: {
-    users: any[];
-    count: number;
-  };
-  downvotes: {
-    users: any[];
-    count: number;
-  };
+  upvotes: Votes;
+  downvotes: Votes;
 };
 
 export interface ReducersType {
@@ -26,8 +25,53 @@ export interface ReducersType {
   blog: BlogState;
 }
 
+export interface Reply {
+  _id: {
+    $oid: string;
+  };
+  user_id: {
+    $oid: string;
+  };
+  created_at: {
+    $date: Date;
+  };
+  username: string;
+  content: string;
+  likes: Votes;
+  dislikes: Votes;
+}
+
+export interface CommentType {
+  _id: {
+    $oid: string;
+  };
+  user_id: {
+    $oid: string;
+  };
+  blog_id: {
+    $oid: string;
+  };
+  created_at: {
+    $date: Date;
+  };
+  content: string;
+  username: string;
+  replies: Reply[];
+  likes: Votes;
+  dislikes: Votes;
+}
+
 export interface BlogState {
   blogs: Blogs[];
+  user: UserDetails;
+  comments: CommentType[];
+}
+
+export interface UserDetails {
+  _id: { $oid: string };
+  username: string;
+  email: string;
+  user_avatar: string;
 }
 
 export interface UserState {
@@ -48,4 +92,5 @@ export interface Action {
 export interface VoteAction {
   type: ActionTypes;
   blog_id: string;
+  user_id: string;
 }

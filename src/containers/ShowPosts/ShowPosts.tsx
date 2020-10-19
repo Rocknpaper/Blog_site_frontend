@@ -42,7 +42,8 @@ const ShowPosts: React.FC = () => {
               blogActions.deleteUserPostAsync(data._id ? data._id?.$oid : "")
             )
           }
-          onEditClick={() => history.push(`/edit-post/${data._id?.$oid}`)}
+          onEditClick={() => history.push(`/show-post/${data._id?.$oid}`)}
+          onClick={() => {}}
         />
       ))
     );

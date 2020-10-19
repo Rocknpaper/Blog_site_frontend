@@ -1,0 +1,22 @@
+.comments {
+  margin-top: 1rem;
+}
+
+
+.comment__input {
+  max-width: 400px;
+  position: relative;
+}
+
+.comment__input > input{
+  padding: 1rem;
+  width: 80%;
+  font-size: 1.2rem;
+}
+
+.comment__input > .send__icon{
+  position: absolute;
+  right: 10%;
+  top: 30%;
+  color: #a3dd58;
+}

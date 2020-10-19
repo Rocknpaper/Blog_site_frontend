@@ -1,0 +1,39 @@
+.post__votes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.2rem 0;
+  margin-right: 10px;
+}
+
+.post__votes > .upvote > .MuiSvgIcon-root,
+.downvote > .MuiSvgIcon-root {
+  height: 30px;
+  width: 20px;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  background-color: #d5d7d8;
+  border-radius: 5px;
+  transition: color 200ms ease-in;
+}
+
+.post__votes > p {
+  padding: 0.2rem;
+}
+
+.upvote > .MuiSvgIcon-root:hover {
+  color: #118811;
+}
+
+.downvote > .MuiSvgIcon-root:hover {
+  color: #d11b1b;
+}
+
+.upvote.active .MuiSvgIcon-root {
+  background-color: #12889c;
+}
+
+.downvote.active .MuiSvgIcon-root {
+  background-color: #12889c;
+}
