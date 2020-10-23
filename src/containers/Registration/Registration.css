@@ -4,15 +4,15 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  height: 100%;
+  height: fit-content;
   width: 80%;
-  background-color: rgb(160, 53, 221);
+  background-color: #64cbd4;
   border-radius: 5px;
 }
 
 .registration__form > h2 {
   padding: 0.4rem;
-  color: #fff;
+  color: rgb(223, 100, 100);
   border: 2px solid #fff;
   margin-bottom: 1rem;
   border-radius: 5px;

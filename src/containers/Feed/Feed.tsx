@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Feed.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import QuickPost from "./QuickPost/QuickPost";
 import SinglePost from "../../components/SinglePost/SinglePost";
-import { Blogs, ReducersType, UserState } from "../../models";
+import { Blogs, ReducersType } from "../../models";
 import * as actions from "../../store/actions/blog_actions";
 import { useHistory } from "react-router-dom";
 
@@ -125,7 +125,9 @@ const Feed: React.FC = () => {
 
   return (
     <div className="feed">
-      {user.logged ? <QuickPost /> : null}
+      {user.logged ? (
+        <QuickPost onClick={() => history.push("/create-post")} />
+      ) : null}
       <div className="feed__posts"> {res} </div>
     </div>
   );

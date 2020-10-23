@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import "./App.css";
 
@@ -11,8 +11,16 @@ import Auth from "./containers/Auth/Auth";
 import Registration from "./containers/Registration/Registration";
 import Logout from "./containers/Auth/Logout/Logout";
 import Blog from "./containers/Explore/Blog/Blog";
+import { useDispatch } from "react-redux";
+import { tryAutoLogin } from "./store/actions/user_actions";
 
-const App = () => {
+const App: React.FC = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(tryAutoLogin());
+  }, []);
+
   return (
     <div className="app">
       <Sidebar />

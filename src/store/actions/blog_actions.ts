@@ -1,4 +1,4 @@
-import { Blogs, UserDetails, CommentType } from "../../models";
+import { Blogs, UserDetails, CommentType, Reply } from "../../models";
 import { ActionTypes } from "./actionTypes";
 import axios from "../../axios";
 
@@ -514,5 +514,190 @@ export const patchReplyLike = (
           : console.log(res)
       )
       .catch((e) => console.log(e));
+  };
+};
+
+const deleteComments = (comment_id: string) => {
+  return {
+    type: ActionTypes.DELETE_COMMENTS,
+    comment_id: comment_id,
+  };
+};
+
+export const deleteCommentAsync = (comment_id: string) => {
+  return (dispatch: any) => {
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .delete(`/comment/${comment_id}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) dispatch(deleteComments(comment_id));
+      });
+  };
+};
+
+const deleteReply = (comment_id: string, reply_id: string) => {
+  return {
+    type: ActionTypes.DELETE_REPLY,
+    comment_id: comment_id,
+    reply_id: reply_id,
+  };
+};
+
+export const deleteReplyAsync = (comment_id: string, reply_id: string) => {
+  return (dispatch: any) => {
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .delete(`/reply-comment/${comment_id}/${reply_id}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(deleteReply(comment_id, reply_id));
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+};
+
+const postReply = (comment_id: string, reply: Reply) => {
+  return {
+    type: ActionTypes.COMMENT_REPLY,
+    comment_id: comment_id,
+    reply: reply,
+  };
+};
+
+interface PostReply {
+  username: string;
+  user_id: string;
+  content: string;
+}
+
+export const postReplyAsync = (comment_id: string, reply: PostReply) => {
+  return (dispatch: any) => {
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .post(`/reply-comment/${comment_id}`, reply, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          const c_reply: Reply = {
+            ...reply,
+            user_id: {
+              $oid: reply.user_id,
+            },
+            _id: {
+              $oid: res.data.id,
+            },
+            created_at: {
+              $date: new Date(),
+            },
+            likes: {
+              users: [],
+              count: 0,
+            },
+            dislikes: {
+              users: [],
+              count: 0,
+            },
+          };
+          console.log(comment_id);
+          dispatch(postReply(comment_id, c_reply));
+        }
+      });
+  };
+};
+
+export const setReplyTo = (replyTo: CommentType) => {
+  return {
+    type: ActionTypes.SET_REPLY,
+    replyTo: replyTo,
+  };
+};
+
+export const resetReplyTo = () => {
+  return {
+    type: ActionTypes.RESET_REPLY,
+  };
+};
+
+const updateComment = (comment_id: string, content: string) => {
+  return {
+    type: ActionTypes.UPDATE_COMMENT,
+    comment_id: comment_id,
+    content: content,
+  };
+};
+
+const updateReply = (comment_id: string, reply_id: string, content: string) => {
+  return {
+    type: ActionTypes.UPDATE_REPLY,
+    comment_id: comment_id,
+    reply_id: reply_id,
+    content: content,
+  };
+};
+
+export const updateCommentAsync = (comment_id: string, content: string) => {
+  return (dispatch: any) => {
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .patch(
+        `/comment/${comment_id}`,
+        {
+          user_id: "placeholder",
+          username: "placeholder",
+          content: content,
+          blog_id: "placeholder",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(updateComment(comment_id, content));
+        }
+      });
+  };
+};
+
+export const updateReplyAsync = (
+  comment_id: string,
+  reply_id: string,
+  content: string
+) => {
+  return (dispatch: any) => {
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .patch(
+        `/reply-comment/${comment_id}/${reply_id}`,
+        {
+          user_id: "placeholder",
+          username: "placeholder",
+          content: content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(updateReply(comment_id, reply_id, content));
+        }
+      });
   };
 };

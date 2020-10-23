@@ -5,6 +5,22 @@ interface Votes {
   count: number;
 }
 
+export interface InputType {
+  elementConfig: {
+    value: string;
+    type: string;
+    placeHolder: string;
+  };
+  validation?: {
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+    isEmail?: boolean;
+  };
+  edit?: boolean;
+  isValid: boolean;
+}
+
 export type Blogs = {
   _id?: {
     $oid: string;
@@ -65,6 +81,9 @@ export interface BlogState {
   blogs: Blogs[];
   user: UserDetails;
   comments: CommentType[];
+  replyTo: CommentType;
+  reply: boolean;
+  edit: boolean;
 }
 
 export interface UserDetails {
@@ -82,6 +101,12 @@ export interface UserState {
   username: string;
   email: string;
   user_avatar: string;
+  error?: {
+    error_type: number;
+    cause?: string;
+    email: string;
+    password: string;
+  };
 }
 
 export interface Action {

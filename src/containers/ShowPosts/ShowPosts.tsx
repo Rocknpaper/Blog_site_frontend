@@ -26,7 +26,7 @@ const ShowPosts: React.FC = () => {
 
   const res =
     blog.blogs.length <= 0 ? (
-      <QuickPost />
+      <QuickPost onClick={() => history.push("/create-post")} />
     ) : (
       blog.blogs.map((data) => (
         <SinglePost
@@ -43,7 +43,9 @@ const ShowPosts: React.FC = () => {
             )
           }
           onEditClick={() => history.push(`/show-post/${data._id?.$oid}`)}
-          onClick={() => {}}
+          onClick={() => {
+            history.push(`/explore/blog/${data._id?.$oid}`);
+          }}
         />
       ))
     );

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import "./Comments.css";
 import Send from "@material-ui/icons/SendOutlined";
 import Commenter from "./Comment/Comment";
@@ -8,6 +8,10 @@ import {
   getCommentsAsync,
   patchCommentLike,
   patchCommentDislike,
+  deleteCommentAsync,
+  postReplyAsync,
+  setReplyTo,
+  resetReplyTo,
 } from "../../store/actions/blog_actions";
 import { ReducersType, CommentType } from "../../models";
 
@@ -29,7 +33,10 @@ const Comments: React.FC<PropsType> = ({
   const { user, blog } = useSelector<ReducersType, ReducersType>(
     (state) => state,
     (cur, prev) => {
-      return cur.blog.comments === prev.blog.comments;
+      return (
+        cur.blog.comments === prev.blog.comments ||
+        cur.blog.reply === prev.blog.reply
+      );
     }
   );
 
@@ -88,6 +95,11 @@ const Comments: React.FC<PropsType> = ({
     }
   };
 
+  const replyHandler = (data: CommentType) => {
+    dispatch(setReplyTo(data));
+    setReplyValue("");
+  };
+
   const dislikeHandler = (data: CommentType) => {
     let exist_up = false,
       exist_down = false;
@@ -121,6 +133,12 @@ const Comments: React.FC<PropsType> = ({
       return d - c;
     });
 
+    const deleteHandler = (data: CommentType) => {
+      if (user._id.$oid === data.user_id.$oid) {
+        dispatch(deleteCommentAsync(data._id.$oid));
+      }
+    };
+
     allComments = comments.map((data) => {
       if (user.logged) {
         return (
@@ -134,6 +152,14 @@ const Comments: React.FC<PropsType> = ({
             }}
             dislikeHandler={(e) => {
               dislikeHandler(data);
+              e.stopPropagation();
+            }}
+            deleteHandler={(e) => {
+              deleteHandler(data);
+              e.stopPropagation();
+            }}
+            replyHandler={(e) => {
+              replyHandler(data);
               e.stopPropagation();
             }}
             like={up(data)}
@@ -153,18 +179,57 @@ const Comments: React.FC<PropsType> = ({
     });
   }
 
+  const [replyValue, setReplyValue] = useState("");
+
+  const replyChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const val = event.target.value;
+    setReplyValue(val);
+  };
+
+  const postReplyHandler = () => {
+    if (blog.replyTo) {
+      dispatch(
+        postReplyAsync(blog.replyTo?._id.$oid, {
+          user_id: user._id.$oid,
+          username: user.username,
+          content: replyValue,
+        })
+      );
+      setReplyValue("");
+      dispatch(resetReplyTo());
+    }
+  };
+
   return (
     <div className="comments">
       {show ? (
         <div className="comment__input">
           <input
             type="text"
-            placeholder="Your Comment Here"
-            value={value}
-            onChange={onChange}
-            onKeyUp={(e) => (e.key === "Enter" ? submitComment(e) : null)}
+            placeholder={
+              blog.reply
+                ? `Your Reply to ${blog.replyTo?.username} Here`
+                : "Your Comment Here"
+            }
+            value={blog.reply ? replyValue : value}
+            onChange={blog.reply ? replyChange : onChange}
+            onKeyUp={(e) =>
+              e.key === "Enter"
+                ? blog.reply
+                  ? postReplyHandler()
+                  : submitComment(e)
+                : null
+            }
+            onBlur={() => {
+              dispatch(resetReplyTo());
+            }}
           />
-          <span className="send__icon" onClick={submitComment}>
+          <span
+            className="send__icon"
+            onClick={(e) =>
+              blog.reply ? postReplyHandler() : submitComment(e)
+            }
+          >
             <Send />
           </span>
         </div>

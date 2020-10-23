@@ -147,6 +147,29 @@ const initialState: BlogState = {
     },
   },
   comments: [],
+  replyTo: {
+    _id: {
+      $oid: "",
+    },
+    username: "",
+    user_id: {
+      $oid: "",
+    },
+    created_at: { $date: new Date() },
+    blog_id: { $oid: "" },
+    replies: [],
+    likes: {
+      users: [],
+      count: 0,
+    },
+    dislikes: {
+      users: [],
+      count: 0,
+    },
+    content: "",
+  },
+  reply: false,
+  edit: false,
 };
 
 const commentsUpdate = (state: BlogState, action: any) => {
@@ -329,6 +352,122 @@ const replyLikeDec = (state: BlogState, action: any) => {
   return newState;
 };
 
+const deleteComments = (state: BlogState, action: any) => {
+  const newState = {
+    ...state,
+  };
+  newState.comments = newState.comments.filter(
+    (comment) => comment._id.$oid !== action.comment_id
+  );
+
+  return newState;
+};
+
+const deleteReply = (state: BlogState, action: any) => {
+  const newState = {
+    ...state,
+  };
+
+  const commentIndex = state.comments.findIndex(
+    (comment) => comment._id.$oid === action.comment_id
+  );
+
+  if (commentIndex >= 0) {
+    newState.comments[commentIndex].replies = newState.comments[
+      commentIndex
+    ].replies.filter((reply) => reply._id.$oid !== action.reply_id);
+  }
+
+  return newState;
+};
+
+const commentReply = (state: BlogState, action: any) => {
+  const newState = {
+    ...state,
+  };
+
+  const commentIndex = state.comments.findIndex(
+    (comment) => comment._id.$oid === action.comment_id
+  );
+
+  newState.comments[commentIndex].replies.push({ ...action.reply });
+  return newState;
+};
+
+const setReplyTo = (state: BlogState, action: any) => {
+  const newState: BlogState = {
+    ...state,
+    replyTo: action.replyTo,
+    reply: true,
+  };
+  return newState;
+};
+
+const resetReply = (state: BlogState, action: any) => {
+  const newState: BlogState = {
+    ...state,
+    replyTo: {
+      _id: {
+        $oid: "",
+      },
+      username: "",
+      user_id: {
+        $oid: "",
+      },
+      created_at: { $date: new Date() },
+      blog_id: { $oid: "" },
+      replies: [],
+      likes: {
+        users: [],
+        count: 0,
+      },
+      dislikes: {
+        users: [],
+        count: 0,
+      },
+      content: "",
+    },
+    reply: false,
+  };
+  return newState;
+};
+
+const updateComment = (state: BlogState, action: any) => {
+  const commentIndex = state.comments.findIndex(
+    (comment) => comment._id.$oid === action.comment_id
+  );
+
+  const newState: BlogState = {
+    ...state,
+  };
+
+  newState.comments[commentIndex] = {
+    ...newState.comments[commentIndex],
+    content: action.content,
+  };
+  return newState;
+};
+
+const updateReply = (state: BlogState, action: any) => {
+  const commentIndex = state.comments.findIndex(
+    (comment) => comment._id.$oid === action.comment_id
+  );
+
+  const replyIndex = state.comments[commentIndex].replies.findIndex(
+    (reply) => reply._id.$oid === action.reply_id
+  );
+
+  const newState: BlogState = {
+    ...state,
+  };
+
+  newState.comments[commentIndex].replies[replyIndex] = {
+    ...newState.comments[commentIndex].replies[replyIndex],
+    content: action.content,
+  };
+  return newState;
+};
+
 export const blogsReducer: Reducer<BlogState, Action> = (
   state = initialState,
   action: any
@@ -412,6 +551,34 @@ export const blogsReducer: Reducer<BlogState, Action> = (
 
     case ActionTypes.REPLY_LIKE_DEC: {
       return replyLikeDec(state, action);
+    }
+
+    case ActionTypes.DELETE_COMMENTS: {
+      return deleteComments(state, action);
+    }
+
+    case ActionTypes.DELETE_REPLY: {
+      return deleteReply(state, action);
+    }
+
+    case ActionTypes.COMMENT_REPLY: {
+      return commentReply(state, action);
+    }
+
+    case ActionTypes.SET_REPLY: {
+      return setReplyTo(state, action);
+    }
+
+    case ActionTypes.RESET_REPLY: {
+      return resetReply(state, action);
+    }
+
+    case ActionTypes.UPDATE_COMMENT: {
+      return updateComment(state, action);
+    }
+
+    case ActionTypes.UPDATE_REPLY: {
+      return updateReply(state, action);
     }
 
     default:

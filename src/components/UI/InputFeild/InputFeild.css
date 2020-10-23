@@ -1,5 +1,3 @@
-
-
 .inputFeild {
   display: block;
   width: 50%;
@@ -13,6 +11,13 @@
   outline: none;
 }
 
+.inputFeild.invalid{
+  border: 1px solid #ac3c3c;
+}
+
+.inputFeild.valid{
+  border: 1px solid #2fb32f;
+}
 
 @media (max-width: 600px) {
   .inputFeild {

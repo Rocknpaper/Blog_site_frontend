@@ -9,11 +9,24 @@
 }
 
 .post {
+  position: relative;
   width: 90%;
   background: var(--primary-background);
   padding: 2rem;
   border-radius: 15px;
 }
+
+.post > .edit__key{
+  cursor: pointer;
+  color: #fff;
+  position: absolute;
+  right: 7%;
+  top: 15%;
+  padding: 0.3rem;
+  background: #7f867d;
+  border-radius: 5px;
+}
+
 
 .blog__header > h1 {
   font-weight: 800;

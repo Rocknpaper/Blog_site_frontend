@@ -1,30 +1,28 @@
 import React, { ChangeEvent } from "react";
 import "./InputFeild.css";
-
+import { InputType } from "../../../models";
 
 interface PropsType {
-  type: string;
+  config: InputType;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  placeHolder: string;
-  value: string;
   onFoucusOut?: (event: any) => void;
 }
 
-const InputFeild: React.FC<PropsType> = ({
-  type,
-  onChange,
-  placeHolder,
-  value,
-  onFoucusOut,
-}) => {
+const InputFeild: React.FC<PropsType> = ({ onFoucusOut, onChange, config }) => {
+  let classes = ["inputFeild"];
+  if (config.edit) {
+    config.isValid ? classes.push("valid") : classes.push("invalid");
+  }
+
   return (
     <input
-      className="inputFeild"
-      type={type}
-      placeholder={placeHolder}
-      value={value}
+      className={classes.join(" ")}
+      type={config.elementConfig.type}
+      placeholder={config.elementConfig.placeHolder}
+      value={config.elementConfig.value}
       onChange={onChange}
       onBlur={onFoucusOut}
+      formNoValidate
     />
   );
 };

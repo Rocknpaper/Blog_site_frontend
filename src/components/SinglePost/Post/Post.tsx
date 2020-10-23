@@ -40,6 +40,7 @@ const Post: React.FC<PropsType> = ({
             className="post__edit"
             onClick={(e: any) => {
               if (onEditClick) onEditClick(e);
+              e.stopPropagation();
             }}
           >
             <Edit />
@@ -48,6 +49,7 @@ const Post: React.FC<PropsType> = ({
             className="post__delete"
             onClick={(e: any) => {
               if (onDeleteClick) onDeleteClick(e);
+              e.stopPropagation();
             }}
           >
             <Delete />

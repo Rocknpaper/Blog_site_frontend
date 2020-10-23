@@ -10,6 +10,7 @@ import {
   userDataAsync,
   resetUserData,
 } from "../../../store/actions/blog_actions";
+import Edit from "@material-ui/icons/EditOutlined";
 
 interface ParamsType {
   type: string;
@@ -20,13 +21,14 @@ const Blog: React.FC = () => {
   const { type, id } = useParams<ParamsType>();
   const [comment, setComment] = useState("");
 
+  const history = useHistory();
+
   const state = useSelector<ReducersType, ReducersType>(
     (state) => state,
     shallowEqual
   );
   const dispatch = useDispatch();
 
-  const history = useHistory();
   const [post, setPost] = useState<Blogs>({
     title: "",
     content: "",
@@ -80,6 +82,18 @@ const Blog: React.FC = () => {
         <div className="content">
           <p>{post.content}</p>
         </div>
+        {state.user.logged ? (
+          state.user._id.$oid === post.user_id ? (
+            <span
+              className="edit__key"
+              onClick={() => {
+                history.push(`/show-post/${post._id?.$oid}`);
+              }}
+            >
+              <Edit />
+            </span>
+          ) : null
+        ) : null}
       </div>
       <div className="post__user-details">
         <h3>Written by</h3>
