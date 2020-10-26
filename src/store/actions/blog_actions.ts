@@ -1,8 +1,14 @@
-import { Blogs, UserDetails, CommentType, Reply } from "../../models";
+import { UserDetails, CommentType, Reply, Blogs } from "../../models";
 import { ActionTypes } from "./actionTypes";
 import axios from "../../axios";
 
 type incOrDec = "inc" | "dec";
+
+export const setLoading = () => {
+  return {
+    type: ActionTypes.SET_LOADING,
+  };
+};
 
 const addBlogPosts = (blogs: Array<Blogs>) => {
   return {
@@ -699,5 +705,23 @@ export const updateReplyAsync = (
           dispatch(updateReply(comment_id, reply_id, content));
         }
       });
+  };
+};
+
+const getUserBlog = (blogs: Blogs[]) => {
+  return {
+    type: ActionTypes.GET_USER_BLOG,
+    blogs: blogs,
+  };
+};
+
+export const getUserBlogAsync = (user_id: string) => {
+  return (dispatch: any) => {
+    axios
+      .get(`/blog/user/${user_id}`)
+      .then((res) => {
+        if (res.status === 200) dispatch(getUserBlog(res.data));
+      })
+      .catch((e) => console.log(e));
   };
 };

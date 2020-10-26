@@ -37,7 +37,7 @@
   justify-content: space-around;
 }
 
-.comment > .show__more >p{
+.comment > .show__more > p {
   color: #654088;
   cursor: pointer;
   padding-top: 0.5rem;
@@ -57,21 +57,24 @@
   color: #d83c3c;
 }
 
-.like, .dislike{
+.like,
+.dislike {
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 
-.like.active .MuiSvgIcon-root, .dislike.active .MuiSvgIcon-root{
-  color: #5918a3
+.like.active .MuiSvgIcon-root,
+.dislike.active .MuiSvgIcon-root {
+  color: #5918a3;
 }
 
-.like > span, .dislike > span {
+.like > span,
+.dislike > span {
   margin-left: 0.3rem;
 }
 
-.admin__edit{
+.admin__edit {
   position: absolute;
   top: 10%;
   right: 5%;
@@ -80,21 +83,32 @@
   height: 100%;
 }
 
-.admin__edit > .edit, .admin__edit > .delete{
+.admin__edit > .edit,
+.admin__edit > .delete {
   cursor: pointer;
   padding: 0.3rem;
   background-color: #b2a9bb;
   border-radius: 5px;
 }
 
-.admin__edit > .delete{
+.admin__edit > .delete {
   margin-top: 0.5rem;
 }
 
-.admin__edit > .delete:hover{
+.admin__edit > .delete:hover {
   color: #d83c3c;
 }
 
-.admin__edit > .edit:hover{
+.admin__edit > .edit:hover {
   color: #4baacf;
+}
+
+.empty__box {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: grey;
+  padding: 1rem;
+  border-radius: 5px;
 }

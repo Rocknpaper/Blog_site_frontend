@@ -6,13 +6,13 @@
   padding: 2rem;
   height: fit-content;
   width: 80%;
-  background-color: #64cbd4;
+  background-color: #baeaee;
   border-radius: 5px;
 }
 
 .registration__form > h2 {
   padding: 0.4rem;
-  color: rgb(223, 100, 100);
+  color: #2d525d;
   border: 2px solid #fff;
   margin-bottom: 1rem;
   border-radius: 5px;
@@ -24,7 +24,7 @@
 
 .registration__form label {
   display: flex;
-  background-color: #bdbd35;
+  background-color: #76c563;
   padding: 0.3rem;
   align-items: center;
   border-radius: 10px;

@@ -84,6 +84,7 @@ const Registration: React.FC = () => {
         value: "",
         type: "file",
       },
+      edit: false,
       isValid: true,
     },
   };

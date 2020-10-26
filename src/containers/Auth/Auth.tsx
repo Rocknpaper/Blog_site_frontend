@@ -28,6 +28,7 @@ const Auth: React.FC<RouteProps> = ({ location }) => {
       validation: {
         required: true,
       },
+      edit: false,
       isValid: false,
     },
     password: {
@@ -39,6 +40,7 @@ const Auth: React.FC<RouteProps> = ({ location }) => {
       validation: {
         required: true,
       },
+      edit: false,
       isValid: false,
     },
   };
@@ -67,6 +69,7 @@ const Auth: React.FC<RouteProps> = ({ location }) => {
             ...prev.email.elementConfig,
             value: val,
           },
+          edit: true,
           isValid: validate({
             ...prev.email,
             elementConfig: { ...prev.email.elementConfig, value: val },
@@ -88,6 +91,7 @@ const Auth: React.FC<RouteProps> = ({ location }) => {
             ...prev.password.elementConfig,
             value: val,
           },
+          edit: true,
           isValid: validate({
             ...prev.password,
             elementConfig: { ...prev.password.elementConfig, value: val },

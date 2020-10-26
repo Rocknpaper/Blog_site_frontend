@@ -10,6 +10,7 @@ interface PropsType {
   editable?: true;
   onEditClick?: (e: any) => void;
   onDeleteClick?: (e: any) => void;
+  authorOnClick?: () => void;
 }
 
 const Post: React.FC<PropsType> = ({
@@ -18,6 +19,7 @@ const Post: React.FC<PropsType> = ({
   date,
   editable,
   onDeleteClick,
+  authorOnClick,
   onEditClick,
 }) => {
   return (
@@ -27,7 +29,15 @@ const Post: React.FC<PropsType> = ({
           <h2 className="post__title">{title}</h2>
         </div>
         <div className="post__body">
-          <h3 className="post__author">{author}</h3>
+          <h3
+            className="post__author"
+            onClick={(e) => {
+              if (authorOnClick) authorOnClick();
+              e.stopPropagation();
+            }}
+          >
+            {author}
+          </h3>
           <h4 className="post__time">
             {new Date(date ? date : "").toString()}
           </h4>

@@ -48,3 +48,20 @@
 .user__avatar > .MuiSvgIcon-root {
   position: absolute;
 }
+
+.change__password{
+  display: block;
+  margin: 1rem 0;
+  cursor: pointer;
+  color: #35359c;
+}
+
+.userDetails > .controls{
+  display: flex;
+  width: 50%;
+}
+
+.userDetails > .controls > .btn:first-child{
+  background-color: rgb(177, 70, 70);
+  margin-right: 1rem;
+}

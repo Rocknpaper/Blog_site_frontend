@@ -17,7 +17,8 @@ export interface InputType {
     maxLength?: number;
     isEmail?: boolean;
   };
-  edit?: boolean;
+  changed?: boolean;
+  edit: boolean;
   isValid: boolean;
 }
 
@@ -84,6 +85,7 @@ export interface BlogState {
   replyTo: CommentType;
   reply: boolean;
   edit: boolean;
+  loading: boolean;
 }
 
 export interface UserDetails {
@@ -91,6 +93,7 @@ export interface UserDetails {
   username: string;
   email: string;
   user_avatar: string;
+  blogs?: Blogs[];
 }
 
 export interface UserState {
@@ -107,6 +110,8 @@ export interface UserState {
     email: string;
     password: string;
   };
+  loading: boolean;
+  resetPass?: { reset: boolean; type: number; cause: string };
 }
 
 export interface Action {

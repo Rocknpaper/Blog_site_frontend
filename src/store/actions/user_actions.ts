@@ -137,7 +137,6 @@ export const tryAutoLogin = () => {
       let time = localStorage.getItem("expiresIn");
       const expiresIn = time ? new Date(+time) : new Date();
       const user_avatar = localStorage.getItem("userAvatar");
-      console.log(expiresIn, new Date());
       if (expiresIn > new Date()) {
         dispatch(
           authSuccess({
@@ -173,5 +172,101 @@ export const logOutUser = (cb: Function = () => {}) => {
   cb();
   return {
     type: ActionTypes.LOGOUT_USER,
+  };
+};
+
+const resetPasswordSuccess = () => {
+  return {
+    type: ActionTypes.RESET_PASSWORD_SUCCESS,
+  };
+};
+
+const resetPasswordFailure = (casue: string, type: number) => {
+  return {
+    type: ActionTypes.RESET_PASSWORD_FAILURE,
+    cause: casue,
+    error_type: type,
+  };
+};
+
+export const resetPassReset = () => {
+  return {
+    type: ActionTypes.RESET_ERROR_RS,
+  };
+};
+
+export const resetPasswordAsync = (
+  user: {
+    email: string;
+    password: string;
+  },
+  cb: Function = () => {}
+) => {
+  return (dispatch: any) => {
+    axios
+      .post("/auth/user", user)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(resetPasswordSuccess());
+          cb();
+        }
+      })
+      .catch((e) => {
+        dispatch(
+          resetPasswordFailure(e.response.data.cause, e.response.status)
+        );
+      });
+  };
+};
+
+const patchUser = (user: { username: string; email: string }) => {
+  return {
+    type: ActionTypes.PATCH_USER_DETAILS,
+    user: user,
+  };
+};
+
+export const patchUserDetailsAsync = (user: {
+  username: string;
+  email: string;
+}) => {
+  return (dispatch: any) => {
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .patch("/user", user, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then((res) => {
+        dispatch(patchUser(user));
+        localStorage.setItem("email", user.email);
+        localStorage.setItem("username", user.username);
+
+        dispatch(resetPassReset());
+      })
+      .catch((e) => console.log(e));
+  };
+};
+
+export const patchPassword = (password: string) => {
+  return (dispatch: any) => {
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .patch(
+        "/user-password",
+        {
+          password: password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(resetPassReset());
+      })
+      .catch((e) => console.log(e));
   };
 };

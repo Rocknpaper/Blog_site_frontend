@@ -16,6 +16,7 @@ interface PropsType {
   onUpvoteClick?: (e: any) => void;
   onDownvoteClick?: (e: any) => void;
   onClick: () => void;
+  onAuthorClick?: () => void;
   up?: boolean;
   down?: boolean;
 }
@@ -32,6 +33,7 @@ const SinglePost: React.FC<PropsType> = ({
   onEditClick,
   onDeleteClick,
   onClick,
+  onAuthorClick,
   up,
   down,
 }) => {
@@ -52,6 +54,7 @@ const SinglePost: React.FC<PropsType> = ({
         editable={editable}
         onDeleteClick={onDeleteClick}
         onEditClick={onEditClick}
+        authorOnClick={onAuthorClick}
       />
     </div>
   );

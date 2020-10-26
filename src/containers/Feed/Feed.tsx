@@ -97,31 +97,36 @@ const Feed: React.FC = () => {
   };
 
   const res =
-    blog.blogs.length <= 0
-      ? "No Posts Found"
-      : blog.blogs.map((data) => (
-          <SinglePost
-            key={data._id?.$oid}
-            title={data.title}
-            author={data.username ? data.username : ""}
-            date={data.created_at?.$date}
-            upVote={data.upvotes.count}
-            downVote={data.downvotes.count}
-            onUpvoteClick={(e: any) => {
-              if (user.logged) upVoteHandler(data);
-              e.stopPropagation();
-            }}
-            onDownvoteClick={(e: any) => {
-              if (user.logged) downVoteHandler(data);
-              e.stopPropagation();
-            }}
-            onClick={() => {
-              history.push(`/explore/blog/${data._id?.$oid}`);
-            }}
-            up={up(data)}
-            down={down(data)}
-          />
-        ));
+    blog.blogs.length <= 0 ? (
+      <div className="empty__box">No Posts Yet</div>
+    ) : (
+      blog.blogs.map((data) => (
+        <SinglePost
+          key={data._id?.$oid}
+          title={data.title}
+          author={data.username ? data.username : ""}
+          date={data.created_at?.$date}
+          upVote={data.upvotes.count}
+          downVote={data.downvotes.count}
+          onUpvoteClick={(e: any) => {
+            if (user.logged) upVoteHandler(data);
+            e.stopPropagation();
+          }}
+          onDownvoteClick={(e: any) => {
+            if (user.logged) downVoteHandler(data);
+            e.stopPropagation();
+          }}
+          onClick={() => {
+            history.push(`/explore/blog/${data._id?.$oid}`);
+          }}
+          up={up(data)}
+          down={down(data)}
+          onAuthorClick={() => {
+            history.push(`/userpage/${data.user_id}`);
+          }}
+        />
+      ))
+    );
 
   return (
     <div className="feed">

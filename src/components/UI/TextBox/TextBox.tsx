@@ -9,7 +9,9 @@ interface PropsType {
 
 const TextBox: React.FC<PropsType> = ({ config, onChange }) => {
   let classes = ["textBox"];
-  config.isValid ? classes.push("valid") : classes.push("invalid");
+  if (config.edit) {
+    config.isValid ? classes.push("valid") : classes.push("invalid");
+  }
 
   return (
     <textarea

@@ -14,6 +14,7 @@ const initialState: UserState = {
   username: "",
   email: "",
   user_avatar: "",
+  loading: false,
 };
 
 const initUser = (state: UserState, action: any) => {
@@ -67,6 +68,42 @@ const registerError = (state: UserState, action: any) => {
   return newState;
 };
 
+const resetPasswordSuccess = (state: UserState, action: any) => {
+  return {
+    ...state,
+    resetPass: {
+      reset: true,
+      type: 0,
+      cause: "",
+    },
+  } as UserState;
+};
+
+const resetPasswordFailure = (state: UserState, action: any) => {
+  return {
+    ...state,
+    resetPass: {
+      reset: false,
+      type: action.error_type,
+      cause: action.cause,
+    },
+  } as UserState;
+};
+
+const resetPasswordReset = (state: UserState, action: any) => {
+  return {
+    ...state,
+    resetPass: undefined,
+  } as UserState;
+};
+
+const userPatch = (state: UserState, action: any) => {
+  return {
+    ...state,
+    ...action.user,
+  } as UserState;
+};
+
 export const userReducer: Reducer<UserState, any> = (
   state = initialState,
   action: any
@@ -91,6 +128,22 @@ export const userReducer: Reducer<UserState, any> = (
 
     case ActionTypes.REGISTRATION_ERROR: {
       return registerError(state, action);
+    }
+
+    case ActionTypes.RESET_PASSWORD_SUCCESS: {
+      return resetPasswordSuccess(state, action);
+    }
+
+    case ActionTypes.RESET_PASSWORD_FAILURE: {
+      return resetPasswordFailure(state, action);
+    }
+
+    case ActionTypes.RESET_ERROR_RS: {
+      return resetPasswordReset(state, action);
+    }
+
+    case ActionTypes.PATCH_USER_DETAILS: {
+      return userPatch(state, action);
     }
 
     default:

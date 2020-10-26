@@ -13,6 +13,7 @@ import Logout from "./containers/Auth/Logout/Logout";
 import Blog from "./containers/Explore/Blog/Blog";
 import { useDispatch } from "react-redux";
 import { tryAutoLogin } from "./store/actions/user_actions";
+import UserPage from "./containers/UserPage/UserPage";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const App: React.FC = () => {
       <Route path="/register" component={Registration} />
       <Route path="/show-post/:id" component={CreatePost} />
       <Route path="/explore/:type/:id" component={Blog} />
+      <Route path="/userpage/:id" component={UserPage} />
       <Route path="/logout" component={Logout} />
     </div>
   );

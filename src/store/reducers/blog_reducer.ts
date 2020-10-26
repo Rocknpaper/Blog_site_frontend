@@ -8,6 +8,7 @@ const initPosts = (state: BlogState, action: Action) => {
   const newState: BlogState = {
     ...state,
     blogs: updateBlogs(state.blogs, action.blogs),
+    loading: false,
   };
   return newState;
 };
@@ -126,6 +127,7 @@ const resetData = (state: BlogState, action: any) => {
       },
     },
     comments: [],
+    loading: false,
   } as BlogState;
 };
 
@@ -170,6 +172,7 @@ const initialState: BlogState = {
   },
   reply: false,
   edit: false,
+  loading: false,
 };
 
 const commentsUpdate = (state: BlogState, action: any) => {
@@ -468,6 +471,24 @@ const updateReply = (state: BlogState, action: any) => {
   return newState;
 };
 
+const setLoading = (state: BlogState, action: any) => {
+  const newState: BlogState = {
+    ...state,
+    loading: true,
+  };
+  return newState;
+};
+
+const getUserBlog = (state: BlogState, action: any) => {
+  return {
+    ...state,
+    user: {
+      ...state.user,
+      blogs: action.blogs,
+    },
+  } as BlogState;
+};
+
 export const blogsReducer: Reducer<BlogState, Action> = (
   state = initialState,
   action: any
@@ -579,6 +600,14 @@ export const blogsReducer: Reducer<BlogState, Action> = (
 
     case ActionTypes.UPDATE_REPLY: {
       return updateReply(state, action);
+    }
+
+    case ActionTypes.SET_LOADING: {
+      return setLoading(state, action);
+    }
+
+    case ActionTypes.GET_USER_BLOG: {
+      return getUserBlog(state, action);
     }
 
     default:

@@ -6,9 +6,15 @@ interface PropsType {
   config: InputType;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onFoucusOut?: (event: any) => void;
+  onSubmit?: (event: any) => void;
 }
 
-const InputFeild: React.FC<PropsType> = ({ onFoucusOut, onChange, config }) => {
+const InputFeild: React.FC<PropsType> = ({
+  onFoucusOut,
+  onChange,
+  config,
+  onSubmit,
+}) => {
   let classes = ["inputFeild"];
   if (config.edit) {
     config.isValid ? classes.push("valid") : classes.push("invalid");
@@ -22,6 +28,7 @@ const InputFeild: React.FC<PropsType> = ({ onFoucusOut, onChange, config }) => {
       value={config.elementConfig.value}
       onChange={onChange}
       onBlur={onFoucusOut}
+      onKeyUp={onSubmit}
       formNoValidate
     />
   );

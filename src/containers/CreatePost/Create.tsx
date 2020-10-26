@@ -24,7 +24,7 @@ const Create: React.FC = () => {
   const blogs = useSelector<ReducersType, BlogState>((state) => state.blog);
   const user = useSelector<ReducersType, UserState>((state) => state.user);
 
-  const cfg: { title: InputType; content: InputType; tags: InputType } = {
+  const cfg: { title: InputType; content: InputType /*tags: InputType */ } = {
     title: {
       elementConfig: {
         value: "",
@@ -35,6 +35,7 @@ const Create: React.FC = () => {
         minLength: 6,
         maxLength: 64,
       },
+      edit: false,
       isValid: false,
     },
     content: {
@@ -47,16 +48,18 @@ const Create: React.FC = () => {
         minLength: 10,
         maxLength: 2000,
       },
+      edit: false,
       isValid: false,
     },
-    tags: {
-      elementConfig: {
-        value: "",
-        placeHolder: "Tags",
-        type: "text",
-      },
-      isValid: false,
-    },
+    // tags: {
+    //   elementConfig: {
+    //     value: "",
+    //     placeHolder: "Tags",
+    //     type: "text",
+    //   },
+    //   edit: true,
+    //   isValid: true,
+    // },
   };
 
   const [feild, setFeild] = useState(cfg);
@@ -80,6 +83,7 @@ const Create: React.FC = () => {
               ...prev.title.elementConfig,
               value: blog ? blog.title : "",
             },
+            edit: true,
             isValid: validate(feild.title),
           },
           content: {
@@ -88,6 +92,7 @@ const Create: React.FC = () => {
               ...prev.content.elementConfig,
               value: blog ? blog.content : "",
             },
+            edit: true,
             isValid: validate(feild.content),
           },
         };
@@ -111,6 +116,7 @@ const Create: React.FC = () => {
             ...prev.title.elementConfig,
             value: val,
           },
+          edit: true,
           isValid: validate({
             ...prev.title,
             elementConfig: { ...prev.title.elementConfig, value: val },
@@ -131,6 +137,7 @@ const Create: React.FC = () => {
             ...prev.content.elementConfig,
             value: val,
           },
+          edit: true,
           isValid: validate({
             ...prev.content,
             elementConfig: { ...prev.content.elementConfig, value: val },
@@ -189,7 +196,7 @@ const Create: React.FC = () => {
     <form className="postForm">
       <InputFeild config={feild.title} onChange={inputChange} />
       <TextBox config={feild.content} onChange={textAreaChange} />
-      <InputFeild config={feild.tags} onChange={(e) => console.log(e)} />
+      {/* <InputFeild config={feild.tags} onChange={(e) => console.log(e)} /> */}
       <Button
         text="Submit"
         onClick={edit ? editSubmitHandler : SubmitHandler}

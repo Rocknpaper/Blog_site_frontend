@@ -11,6 +11,14 @@
   resize: none;
 }
 
+.textBox.valid {
+  border: 1px solid #2fb32f;
+}
+
+.textBox.invalid {
+  border: 1px solid #ac3c3c;
+}
+
 @media (max-width: 600px) {
   .textBox {
     padding: 0.4rem 1rem;

@@ -124,7 +124,9 @@ const Comments: React.FC<PropsType> = ({
     }
   };
 
-  let allComments: JSX.Element | JSX.Element[] = <p>"No comments found"</p>;
+  let allComments: JSX.Element | JSX.Element[] = (
+    <div className="empty__box">No Commets Yet</div>
+  );
 
   if (blog.comments.length > 0) {
     const comments = blog.comments.sort((a, b) => {
