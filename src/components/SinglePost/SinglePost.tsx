@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./SinglePost.css";
 
 import PostVotes from "./PostVotes/PostVotes";
 import Post from "./Post/Post";
+
+import { TweenLite } from "gsap";
 
 interface PropsType {
   title: String;
@@ -37,8 +39,21 @@ const SinglePost: React.FC<PropsType> = ({
   up,
   down,
 }) => {
+  let singlePost: any = useRef(null);
+
+  useEffect(() => {
+    TweenLite.from(singlePost, 0.5, {
+      delay: 0.2,
+      scale: 0.3,
+    });
+  }, []);
+
   return (
-    <div className="singlePost" onClick={onClick}>
+    <div
+      ref={(el) => (singlePost = el)}
+      className="singlePost"
+      onClick={onClick}
+    >
       <PostVotes
         upVote={upVote}
         downVote={downVote}

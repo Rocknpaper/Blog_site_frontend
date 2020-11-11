@@ -3,11 +3,7 @@ import InputFeild from "../../components/UI/InputFeild/InputFeild";
 import Label from "../../components/UI/Label/Label";
 import "./UserDetails.css";
 import { ReducersType, UserState, InputType } from "../../models/index";
-import {
-  useSelector,
-  /* useDispatch, */ shallowEqual,
-  useDispatch,
-} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Edit from "@material-ui/icons/EditOutlined";
 import { useHistory } from "react-router-dom";
 import validate from "../../util/validation";
@@ -204,8 +200,6 @@ const UserDetails: React.FC = () => {
         : false;
   }
 
-  console.log(state.email.changed);
-
   return (
     <div className="userDetails">
       <div className="user__avatar">
@@ -345,7 +339,32 @@ const UserDetails: React.FC = () => {
       ) : null}
       {user.resetPass?.reset || changed ? (
         <div className="controls">
-          <Button text="Cancel" />
+          <Button
+            text="Cancel"
+            onClick={(e) => {
+              e.preventDefault();
+              setState((prev) => {
+                return {
+                  ...prev,
+                  email: {
+                    ...prev.email,
+                    elementConfig: {
+                      ...prev.email.elementConfig,
+                      value: user.email,
+                    },
+                  },
+                  username: {
+                    ...prev.username,
+                    elementConfig: {
+                      ...prev.username.elementConfig,
+                      value: user.username,
+                    },
+                  },
+                };
+              });
+              dispatch(resetPassReset());
+            }}
+          />
           <Button
             text="Save"
             onClick={(e) => {

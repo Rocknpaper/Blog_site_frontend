@@ -270,3 +270,65 @@ export const patchPassword = (password: string) => {
       .catch((e) => console.log(e));
   };
 };
+
+const forgetPass = (email: string) => {
+  return {
+    type: ActionTypes.FORGET_PASSWORD,
+    email: email,
+  };
+};
+
+export const forgetPassAsync = (email: string) => {
+  return (dispatch: any) => {
+    axios
+      .post("/forget-password", { email: email })
+      .then((res) => {
+        if (res.status === 200) dispatch(forgetPass(email));
+      })
+      .catch((e) => console.log(e));
+  };
+};
+
+const setForgetError = (error_type: number, cause: string) => {
+  return {
+    type: ActionTypes.FETCH_POSTS_FAILED,
+    error_type: error_type,
+    cause: cause,
+  };
+};
+
+const forgetPassSuccess = () => {
+  return {
+    type: ActionTypes.SET_FORGET_SUCCESS,
+  };
+};
+
+export const resetForgetPass = () => {
+  return {
+    type: ActionTypes.RESET_FORGET_PASS,
+  };
+};
+
+export const checkRecovery = (email: string, code: number) => {
+  return (dispatch: any) => {
+    axios.get(`/forget-password/${email}/${code}`).then((res) => {
+      if (res.status === 201) {
+        dispatch(setForgetError(res.status, res.data.cause));
+      } else {
+        dispatch(resetError());
+        dispatch(forgetPassSuccess());
+      }
+    });
+  };
+};
+
+export const setPassword = (email: string, password: string) => {
+  return (dispatch: any) => {
+    axios
+      .post("/password", { email: email, password: password })
+      .then((res) => {
+        if (res.status === 200) dispatch(resetForgetPass());
+      })
+      .catch((e) => console.log(e));
+  };
+};

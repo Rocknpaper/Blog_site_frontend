@@ -112,6 +112,11 @@ export interface UserState {
   };
   loading: boolean;
   resetPass?: { reset: boolean; type: number; cause: string };
+  forgetPass?: {
+    email: string;
+    send: boolean;
+    done?: boolean;
+  }
 }
 
 export interface Action {

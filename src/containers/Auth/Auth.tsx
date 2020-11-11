@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, { ChangeEvent, useState, useEffect, useRef } from "react";
 import "./Auth.css";
 
 import Modal from "../../components/UI/Modal/Modal";
@@ -48,9 +48,11 @@ const Auth: React.FC<RouteProps> = ({ location }) => {
   const [feild, setFeild] = useState(cfg);
   const [show, setShow] = useState<boolean>(true);
 
+
   useEffect(() => {
     return () => {
       dispatch(resetError());
+      
     };
   }, []);
 
@@ -142,6 +144,9 @@ const Auth: React.FC<RouteProps> = ({ location }) => {
         <InputFeild config={feild.email} onChange={changeEmailHandler} />
         <InputFeild config={feild.password} onChange={changePasswordHandler} />
         <Button text="Login" onClick={submitHandler} />
+        <Link to="/forget-pass">
+          <h3>Forget Password?</h3>
+        </Link>
         <Link to="/register">
           <h3>Register</h3>
         </Link>

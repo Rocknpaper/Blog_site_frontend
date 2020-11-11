@@ -104,6 +104,46 @@ const userPatch = (state: UserState, action: any) => {
   } as UserState;
 };
 
+const forgetPass = (state: UserState, action: any) => {
+  return {
+    ...state,
+    forgetPass: {
+      email: action.email,
+      send: true,
+    },
+  } as UserState;
+};
+
+const setForgetError = (state: UserState, action: any) => {
+  return {
+    ...state,
+    error: {
+      error_type: action.error_type,
+      cause: action.cause,
+      email: "",
+      password: "",
+    },
+  } as UserState;
+};
+
+const setForgetSuccess = (state: UserState, action: any) => {
+  return {
+    ...state,
+    forgetPass: {
+      send: false,
+      email: "",
+      done: true,
+    },
+  } as UserState;
+};
+
+const resetForgetPass = (state: UserState, action: any) => {
+  return {
+    ...state,
+    forgetPass: undefined,
+  } as UserState;
+};
+
 export const userReducer: Reducer<UserState, any> = (
   state = initialState,
   action: any
@@ -144,6 +184,22 @@ export const userReducer: Reducer<UserState, any> = (
 
     case ActionTypes.PATCH_USER_DETAILS: {
       return userPatch(state, action);
+    }
+
+    case ActionTypes.FORGET_PASSWORD: {
+      return forgetPass(state, action);
+    }
+
+    case ActionTypes.FORGET_PASSWORD_FAIL: {
+      return setForgetError(state, action);
+    }
+
+    case ActionTypes.SET_FORGET_SUCCESS: {
+      return setForgetSuccess(state, action);
+    }
+
+    case ActionTypes.RESET_FORGET_PASS: {
+      return resetForgetPass(state, action);
     }
 
     default:

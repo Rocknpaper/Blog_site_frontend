@@ -11,6 +11,7 @@
   background-color: white;
   margin-bottom: 1rem;
   z-index: 100;
+  transform: translateY(200px);
 }
 
 .quickPost > h1 {
@@ -21,7 +22,9 @@
   font-weight: 600;
 }
 
-
+.quickPost > .btn {
+  margin-bottom: 1rem;
+}
 
 @media (max-width: 600px) {
   .quickPost {

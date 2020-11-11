@@ -14,6 +14,7 @@ import Blog from "./containers/Explore/Blog/Blog";
 import { useDispatch } from "react-redux";
 import { tryAutoLogin } from "./store/actions/user_actions";
 import UserPage from "./containers/UserPage/UserPage";
+import ForgetPass from "./components/ForgetPass/ForgetPass";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const App: React.FC = () => {
       <Route path="/show-post/:id" component={CreatePost} />
       <Route path="/explore/:type/:id" component={Blog} />
       <Route path="/userpage/:id" component={UserPage} />
+      <Route path="/forget-pass" component={ForgetPass} />
       <Route path="/logout" component={Logout} />
     </div>
   );

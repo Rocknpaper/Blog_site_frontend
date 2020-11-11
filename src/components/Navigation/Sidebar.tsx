@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MutableRefObject, useEffect, useRef } from "react";
 import "./Sidebar.css";
 import BlogLogo from "./blog-solid.svg";
 
@@ -12,15 +12,28 @@ import Explore from "@material-ui/icons/ExploreOutlined";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ReducersType, UserState } from "../../models";
+import { TweenLite } from "gsap";
 
 const Sidebar: React.FC = () => {
   const user = useSelector<ReducersType, UserState>((state) => state.user);
+  let sidebar: any = useRef(null);
+  let brand: any = useRef(null);
+  useEffect(() => {
+    TweenLite.from(sidebar, 0.8, {
+      x: -400,
+    });
+    TweenLite.from(brand, 0.8, {
+      transform: "rotateX(180deg)",
+      opacity: 0,
+      delay: 0.8,
+    });
+  }, []);
 
   return (
-    <nav className="sideBar">
+    <nav ref={(el) => (sidebar = el)} className="sideBar">
       <NavLink to="/" exact className="logo">
         <img src={BlogLogo} alt="Logo" />
-        <h1>Blogger</h1>
+        <h1 ref={(el) => (brand = el)}>Blogger</h1>
       </NavLink>
       <div className="nav-elements">
         <SidebarOptions path="/" exact text="Home" Icon={Home}></SidebarOptions>
